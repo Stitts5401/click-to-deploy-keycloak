@@ -1,0 +1,21 @@
+---
+version: '3'
+
+services:
+  keycloak:
+    image: marketplace.gcr.io/google/keycloak21
+    volumes:
+      - keycloak-data-volume:/opt/keycloak/data
+    command: start
+    environment:
+      KC_DB_URL: <hostname>
+      KC_DB_USERNAME: <DB_USER>
+      KC_DB_PASSWORD: <DB_PASS>
+      KEYCLOAK_ADMIN: <KEYCLOAK_ADMIN>
+      KEYCLOAK_ADMIN_PASSWORD: <KEYCLOAK_ADMIN_PASS>
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+volumes:
+  keycloak-data-volume:

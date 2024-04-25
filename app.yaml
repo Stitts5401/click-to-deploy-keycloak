@@ -20,9 +20,9 @@
   # Specify the container image
   containers:
     - name: keycloak
-      image: gcr.io/just-student-408703/keycloak
+      image: gcr.io/${PROJECT_ID}/keycloak
       ports:
         - containerPort: 8080
 
   beta_settings:
-    cloud_sql_instances: 'just-student-408703:us-east4:postgres'
+    cloud_sql_instances: '${PROJECT_ID}:us-east4:postgres'

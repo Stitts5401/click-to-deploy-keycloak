@@ -21,6 +21,6 @@ steps:
           --set-env-vars KEYCLOAK_ADMIN=admin,KEYCLOAK_ADMIN_PASSWORD=change_me
 
 images:
-  - gcr.io/just-student-408703/keycloak-image
+  - gcr.io/${PROJECT_ID}/keycloak-image
 
 timeout: '1200s'

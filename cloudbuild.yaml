@@ -1,0 +1,26 @@
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/${PROJECT_ID}/keycloak-image', '.']
+
+  # Step 2: Push the Docker image to Google Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/${PROJECT_ID}/keycloak-image']
+
+  # Step 3: Deploy to Google Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        gcloud run deploy keycloak-service \
+          --image gcr.io/${PROJECT_ID}/keycloak-image \
+          --region us-east4 \
+          --platform managed \
+          --allow-unauthenticated \
+          --set-env-vars KEYCLOAK_ADMIN=admin,KEYCLOAK_ADMIN_PASSWORD=change_me
+
+images:
+  - gcr.io/just-student-408703/keycloak-image
+
+timeout: '1200s'

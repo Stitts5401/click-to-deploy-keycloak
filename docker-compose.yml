@@ -1,0 +1,20 @@
+---
+
+version: '3'
+services:
+  keycloak:
+    image: bitnami/keycloak:latest
+    container_name: bitnami_keycloak
+    ports:
+      - 8080:8080
+    environment:
+      KEYCLOAK_DATABASE_HOST: just-student-408703:us-east4:postgres
+      KEYCLOAK_DATABASE_PORT: 5432
+      KEYCLOAK_DATABASE_USER: keycloak_API
+      KEYCLOAK_DATABASE_NAME: postgres
+      KEYCLOAK_DATABASE_VENDOR: postgresql
+      KEYCLOAK_DATABASE_PASSWORD: ${KEYCLOAK_DATABASE_PASSWORD}
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+      KEYCLOAK_CACHE_OWNERS_COUNT: 3
+      KEYCLOAK_AUTH_CACHE_OWNERS_COUNT: 3

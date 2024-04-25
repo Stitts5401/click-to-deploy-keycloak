@@ -1,0 +1,28 @@
+  runtime: custom
+  env: flex
+
+  manual_scaling:
+    instances: 1
+
+  resources:
+    cpu: 1
+    memory_gb: 2
+    disk_size_gb: 10
+
+  env_variables:
+    DB_VENDOR: 'POSTGRES'
+    DB_ADDR: 'jdbc:postgresql://'
+    DB_DATABASE: 'keycloak'
+    DB_USER: 'Keycloak_API'
+    DB_PASSWORD: $DB_PASSWORD
+
+
+  # Specify the container image
+  containers:
+    - name: keycloak
+      image: gcr.io/just-student-408703/keycloak
+      ports:
+        - containerPort: 8080
+
+  beta_settings:
+    cloud_sql_instances: 'just-student-408703:us-east4:postgres'

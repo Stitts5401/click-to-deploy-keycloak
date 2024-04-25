@@ -38,9 +38,18 @@ RUN /opt/keycloak/bin/kc.sh build --db=postgres
 
 ENV C2D_RELEASE 23.0.5
 
+ENV DOCKER_HOST_IP=10.32.0.3 \
+    DB_PORT=5432 \
+    DB_NAME=postgres \
+    DB_VENDOR=postgresql
+
+ENV KC_DB_URL=jdbc:$DB_VENDOR://$DOCKER_HOST_IP:$DB_PORT/$DB_NAME \
+    KC_DB_USERNAME=keycloak_API \
+    KC_DB_PASSWORD=${KC_DB_PASSWORD}
+
 USER 1000
 
 EXPOSE 8080
 EXPOSE 8443
 
-ENTRYPOINT [ "/opt/keycloak/bin/kc.sh" ]
+ENTRYPOINT [ "/opt/keycloak/bin/kc.sh" , "start-dev" ]

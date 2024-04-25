@@ -41,15 +41,30 @@ ENV C2D_RELEASE 23.0.5
 ENV DOCKER_HOST_IP=10.32.0.3 \
     DB_PORT=5432 \
     DB_NAME=postgres \
-    DB_VENDOR=postgresql
+    DB_VENDOR=postgresql \
+    KC_DB_PASSWORD_SECRET=''
 
 ENV KC_DB_URL=jdbc:$DB_VENDOR://$DOCKER_HOST_IP:$DB_PORT/$DB_NAME \
     KC_DB_USERNAME=keycloak_API \
-    KC_DB_PASSWORD=${KC_DB_PASSWORD}
+    KC_DB_PASSWORD=${KC_DB_PASSWORD_SECRET} \
+    KC_HEALTH_ENABLED=true \
+    KC_METRICS_ENABLED=true \
+    KC_HOSTNAME=keycloak-service.domain.com \
+    KC_ADMIN_URL=https://keycloak-service.domain.com/auth/ \
+    KC_QUARKUS_TRANSACTION_MANAGER_ENABLE_RECOVERY=true \
+    KC_HOSTNAME_STRICT=true \
+    KC_HOSTNAME_STRICT_HTTPS=true \
+    KC_HTTPS_ENABLED=true \
+    KC_HTTP_ENABLED=true \
+    KC_LOG=console \
+    KC_LOG_LEVEL=INFO \
+    KC_PROXY=edge
+
+
 
 USER 1000
 
 EXPOSE 8080
 EXPOSE 8443
 
-ENTRYPOINT [ "/opt/keycloak/bin/kc.sh" , "start-dev" ]
+ENTRYPOINT [ "/opt/keycloak/bin/kc.sh" , "start" ]
